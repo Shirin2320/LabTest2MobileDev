@@ -71,4 +71,8 @@ struct ContentView: View {
         productName = ""
         productDescription = ""
         productPrice = ""
-                productProvider = ""
+        productProvider = ""
+    }
+   }
+
+   #Preview {
