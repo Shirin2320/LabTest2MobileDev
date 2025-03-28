@@ -45,8 +45,15 @@ struct ContentView: View {
         }
     }
     private func addProduct() {
-            let newProduct = Product(context: viewContext)
-            newProduct.productName = productName
-            newProduct.productDescription = productDescription
-            newProduct.productPrice = Double(productPrice) ?? 0.0
-            newProduct.productProvider = productProvider
+        let newProduct = Product(context: viewContext)
+        newProduct.productName = productName
+        newProduct.productDescription = productDescription
+        newProduct.productPrice = Double(productPrice) ?? 0.0
+        newProduct.productProvider = productProvider
+        do {
+            try viewContext.save()  // Save the new product
+            clearForm()
+        } catch {
+            print("Error saving product: \(error.localizedDescription)")
+        }
+    }
