@@ -61,3 +61,9 @@ struct ContentView: View {
             withAnimation {
                 offsets.map { products[$0] }.forEach(viewContext.delete)
                 do {
+                    try viewContext.save()  // Save changes after deleting
+                                } catch {
+                                    print("Error deleting product: \(error.localizedDescription)")
+                                }
+                            }
+                        }
