@@ -7,11 +7,12 @@ struct ContentView: View {
         entity: Product.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Product.productName, ascending: true)]
     ) private var products: FetchedResults<Product>
-    
+
     @State private var productName = ""
     @State private var productDescription = ""
     @State private var productPrice = ""
     @State private var productProvider = ""
+
     var body: some View {
         NavigationView {
             VStack {
@@ -22,11 +23,12 @@ struct ContentView: View {
                     TextField("Price", text: $productPrice)
                         .keyboardType(.decimalPad)
                     TextField("Provider", text: $productProvider)
-                    
+
                     Button("Add Product") {
                         addProduct()
                     }
                 }
+
                 // Display products
                 List {
                     ForEach(products, id: \.self) { product in
@@ -44,12 +46,14 @@ struct ContentView: View {
             .navigationBarItems(trailing: EditButton())
         }
     }
+
     private func addProduct() {
         let newProduct = Product(context: viewContext)
         newProduct.productName = productName
         newProduct.productDescription = productDescription
         newProduct.productPrice = Double(productPrice) ?? 0.0
         newProduct.productProvider = productProvider
+
         do {
             try viewContext.save()  // Save the new product
             clearForm()
@@ -57,6 +61,7 @@ struct ContentView: View {
             print("Error saving product: \(error.localizedDescription)")
         }
     }
+
     private func deleteProducts(offsets: IndexSet) {
         withAnimation {
             offsets.map { products[$0] }.forEach(viewContext.delete)
@@ -67,14 +72,16 @@ struct ContentView: View {
             }
         }
     }
+
     private func clearForm() {
         productName = ""
         productDescription = ""
         productPrice = ""
         productProvider = ""
     }
-   }
+}
 
 #Preview {
     ContentView()
-        .environment(\.managedObjectContext, 
+        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+}
