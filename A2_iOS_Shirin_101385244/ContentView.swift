@@ -57,3 +57,7 @@ struct ContentView: View {
             print("Error saving product: \(error.localizedDescription)")
         }
     }
+    private func deleteProducts(offsets: IndexSet) {
+            withAnimation {
+                offsets.map { products[$0] }.forEach(viewContext.delete)
+                do {
