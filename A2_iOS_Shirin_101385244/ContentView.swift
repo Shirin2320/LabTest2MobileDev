@@ -22,8 +22,25 @@ struct ContentView: View {
                         TextField("Price", text: $productPrice)
                             .keyboardType(.decimalPad)
                         TextField("Provider", text: $productProvider)
-
+                        
                         Button("Add Product") {
                             addProduct()
                         }
                     }
+                    // Display products
+                                    List {
+                                        ForEach(products, id: \.self) { product in
+                                            VStack(alignment: .leading) {
+                                                Text(product.productName ?? "Unknown")
+                                                    .font(.headline)
+                                                Text(product.productDescription ?? "No Description")
+                                                    .font(.subheadline)
+                                            }
+                                        }
+                                        .onDelete(perform: deleteProducts)
+                                    }
+                                }
+                                .navigationBarTitle("Products")
+                                .navigationBarItems(trailing: EditButton())
+                            }
+                        }
