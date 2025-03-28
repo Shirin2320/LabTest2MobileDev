@@ -68,4 +68,7 @@ struct ContentView: View {
         }
     }
     private func clearForm() {
-            productName = ""
+        productName = ""
+        productDescription = ""
+        productPrice = ""
+                productProvider = ""
