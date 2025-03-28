@@ -58,12 +58,14 @@ struct ContentView: View {
         }
     }
     private func deleteProducts(offsets: IndexSet) {
-            withAnimation {
-                offsets.map { products[$0] }.forEach(viewContext.delete)
-                do {
-                    try viewContext.save()  // Save changes after deleting
-                                } catch {
-                                    print("Error deleting product: \(error.localizedDescription)")
-                                }
-                            }
-                        }
+        withAnimation {
+            offsets.map { products[$0] }.forEach(viewContext.delete)
+            do {
+                try viewContext.save()  // Save changes after deleting
+            } catch {
+                print("Error deleting product: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func clearForm() {
+            productName = ""
